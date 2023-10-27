@@ -1,0 +1,10 @@
+{
+  "DevAwsCdkGraphqlStack": {
+    "509130371655eucentral1devfrontendbucket": "http://509130371655-eu-central-1-dev-frontend-bucket.s3-website.eu-central-1.amazonaws.com",
+    "509130371655eucentral1devuserpoolid": "eu-central-1_tOWRacQkz",
+    "509130371655eucentral1devgraphqlapikey": "da2-vldwms3qwnbyrcbrsfgxqoewqq",
+    "509130371655eucentral1devuserpoolclientid": "1picm417mq6ihnski6t2vr06nc",
+    "509130371655eucentral1devgraphqlurl": "https://2iokr4xwcbh5tfquhqvmos5wu4.appsync-api.eu-central-1.amazonaws.com/graphql",
+    "509130371655eucentral1devregion": "eu-central-1"
+  }
+}
