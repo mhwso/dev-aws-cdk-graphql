@@ -20,6 +20,7 @@ import { S3Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
 
 export interface ExtendedProperties extends cdk.StageProps {
+	readonly frontendPath: string;
 	readonly domainName: string;
 	readonly hostedZoneId: string;
 	readonly certArnUsEast1: string;
@@ -233,9 +234,9 @@ export class DevAwsCdkGraphqlStack extends cdk.Stack {
 
 		// distribution value enables cloudfront to invalidate after deployment,
 		// even when no public access is given to s3
-		const frontendBucketDeployment = new BucketDeployment(this, 'FrontendBucketDeployment', {
+		new BucketDeployment(this, 'FrontendBucketDeployment', {
 			destinationBucket: frontendBucket,
-			sources: [Source.asset('./frontend/dist/dev-aws-cdk-graphql-frontend')],
+			sources: [Source.asset(props.frontendPath)],
 			distribution: frontendDistribution,
 			distributionPaths: ['/*'],
 		});
