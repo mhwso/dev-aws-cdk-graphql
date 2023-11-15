@@ -10,7 +10,7 @@
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
-    "deploy::cdk": "cdk deploy --profile=cdk -O ./cdk-export.json",
+    "deploy::cdk": "cdk deploy --profile=papagei -O ./cdk-export.json",
     "deploy": "npm run build && npm run build::frontend && npm run deploy::cdk"
   },
   "devDependencies": {

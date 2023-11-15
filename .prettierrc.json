@@ -1,0 +1,23 @@
+{
+  "trailingComma": "all",
+  "printWidth": 120,
+  "bracketSameLine": true,
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "singleAttributePerLine": true,
+  "overrides": [
+    {
+      "files": "*.test.js",
+      "options": {
+        "semi": true
+      }
+    },
+    {
+      "files": ["*.html", "*.scss"],
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
+}
