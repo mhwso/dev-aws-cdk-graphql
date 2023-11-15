@@ -1,0 +1,89 @@
+@use '@angular/material' as mat;
+
+@include mat.core;
+
+$my-palette: (
+    50: #e1fdea,
+    100: #b7f8cb,
+    200: #7ff3a8,
+    300: #02ee80,
+    400: #00e75f,
+    500: #00de45,
+    600: #00cd3a,
+    700: #00b92c,
+    800: #00a71f,
+    900: #008601,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: rgba(black, 0.87),
+        700: rgba(black, 0.87),
+        800: rgba(black, 0.87),
+        900: rgba(black, 0.87),
+    ),
+);
+
+$my-primary: mat.define-palette($my-palette, 300);
+$my-accent: mat.define-palette($my-palette, 500);
+
+$my-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $my-primary,
+            accent: $my-accent,
+        ),
+        density: 0,
+    )
+);
+
+@include mat.all-component-themes($my-theme);
+
+$my-alternative-palette: (
+    50: red,
+    100: #f7bbd5,
+    200: #f48fba,
+    300: #f1609d,
+    400: #ef3a87,
+    500: #ee0270,
+    600: #dc036c,
+    700: #c60467,
+    800: #b00362,
+    900: #8b0159,
+    contrast: (
+        50: blue,
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: rgba(black, 0.87),
+        700: rgba(black, 0.87),
+        800: rgba(black, 0.87),
+        900: rgba(black, 0.87),
+    ),
+);
+
+.alternate-theme {
+    $alternate-primary: mat.define-palette($my-alternative-palette, 800);
+    $alternate-accent: mat.define-palette($my-alternative-palette, 900);
+    $alternate-warn: mat.define-palette($my-alternative-palette, 50);
+    $alternate-theme: mat.define-light-theme(
+        (
+            color: (
+                primary: $alternate-primary,
+                accent: $alternate-accent,
+                warn: $alternate-warn,
+            ),
+        )
+    );
+
+    //@include mat.all-component-themes($alternate-theme);
+
+    // or
+
+    @include mat.button-theme($alternate-theme);
+}
