@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title class="ion-justify-content-center">Register</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div id="container">
+        <h1>Register via Cognito</h1>
+
+        <form
+            id="register"
+            [formGroup]="form"
+            (submit)="singUp()">
+            <ion-list>
+                <ion-item>
+                    <ion-input
+                        label="E-Mail"
+                        label-placement="floating"
+                        error="Please enter a correct user."
+                        formControlName="email"
+                        name="email"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-input
+                        label="Password"
+                        label-placement="floating"
+                        type="password"
+                        error="Please enter the correct password."
+                        formControlName="password"
+                        name="password"></ion-input>
+                </ion-item>
+
+                <ion-item lines="none">
+                    <ion-button
+                        color="success"
+                        type="submit"
+                        >Register</ion-button
+                    >
+                </ion-item>
+            </ion-list>
+
+            <ion-card *ngIf="isConfirm">
+                <ion-card-header><p>Confirm register</p></ion-card-header>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item>
+                            <ion-input
+                                label="Code"
+                                labelPlacement="floating"
+                                formControlName="code"
+                                name="code"></ion-input>
+                        </ion-item>
+                        <ion-item lines="none">
+                            <ion-button (click)="confirmSignUp()">Confirm</ion-button>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+        </form>
+    </div>
+</ion-content>

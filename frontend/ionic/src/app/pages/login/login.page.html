@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <div id="container">
+        <h1>Login via Cognito</h1>
+
+        <form
+            id="login"
+            [formGroup]="form"
+            (submit)="signIn()">
+            <ion-list>
+                <ion-item>
+                    <ion-input
+                        label="E-Mail"
+                        label-placement="floating"
+                        formControlName="email"
+                        name="email"
+                        error="Please enter a correct user."></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-input
+                        label="Password"
+                        label-placement="floating"
+                        type="password"
+                        formControlName="password"
+                        name="password"
+                        error="Please enter the correct password."></ion-input>
+                </ion-item>
+
+                <ion-item lines="none">
+                    <ion-button
+                        color="success"
+                        type="submit"
+                        >Login</ion-button
+                    >
+                </ion-item>
+
+                <ion-item lines="none">
+                    <a [routerLink]="'/register'">Register</a>
+                </ion-item>
+            </ion-list>
+        </form>
+    </div>
+</ion-content>
