@@ -1,17 +1,39 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
-import { IonicModule } from '@ionic/angular'
 import { Router, RouterLink } from '@angular/router'
 import { CognitoService, IUser } from '../../services/cognito.service'
 import { Pages } from '../../../enums/Pages'
+import {
+  IonButton,
+  IonContent,
+  IonHeader,
+  IonInput,
+  IonItem,
+  IonList,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/angular/standalone'
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, RouterLink, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    ReactiveFormsModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonList,
+    IonItem,
+    IonInput,
+    IonButton,
+  ],
 })
 export class LoginPage implements OnInit {
   private cognitoService = inject(CognitoService)

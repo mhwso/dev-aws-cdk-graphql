@@ -1,17 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
-import { IonicModule } from '@ionic/angular'
 import { CognitoService, IUser } from '../../services/cognito.service'
 import { Router } from '@angular/router'
 import { Pages } from '../../../enums/Pages'
-
+import { IonButton, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, IonHeader, IonToolbar, IonTitle, IonContent, IonButton],
 })
 export class DashboardPage implements OnInit {
   private cognitoService = inject(CognitoService)
