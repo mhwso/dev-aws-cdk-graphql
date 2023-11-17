@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { CognitoService, IUser } from '../../services/cognito.service'
 import { Router } from '@angular/router'
-import { Pages } from '../../../enums/Pages'
+import { Pages } from '../../enums/Pages'
 import {
   IonBackButton,
   IonButton,

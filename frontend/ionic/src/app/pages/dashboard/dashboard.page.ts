@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { CognitoService, IUser } from '../../services/cognito.service'
 import { Router } from '@angular/router'
-import { Pages } from '../../../enums/Pages'
+import { Pages } from '../../enums/Pages'
 import { IonButton, IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'
 @Component({
   selector: 'app-dashboard',
@@ -18,13 +18,7 @@ export class DashboardPage implements OnInit {
 
   constructor() {}
 
-  ngOnInit() {
-    this.cognitoService.isAuthenticated().then((response: boolean): void => {
-      if (!response) {
-        this.router.navigate([`/${Pages.LOGIN}`])
-      }
-    })
-  }
+  ngOnInit() {}
 
   onLogout() {
     this.cognitoService.getUser().then((user: IUser): void => {

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router'
-import { Pages } from '../enums/Pages'
+import { Pages } from './enums/Pages'
+import { AuthGuard } from './guards/auth.guard'
 
 export const routes: Routes = [
   {
@@ -17,6 +18,7 @@ export const routes: Routes = [
   },
   {
     path: Pages.DASHBOARD,
+    canActivate: [AuthGuard],
     loadComponent: () => import('./pages/dashboard/dashboard.page').then((m) => m.DashboardPage),
   },
 ]
