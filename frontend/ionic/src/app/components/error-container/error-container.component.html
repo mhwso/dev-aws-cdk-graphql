@@ -1,0 +1,14 @@
+<div class="error-container">
+    <ng-container *ngFor="let validation of validationSet">
+        <div
+            *ngIf="
+                !form ||
+                (form.get(field)?.hasError(validation.type) && (form.get(field)?.dirty || form.get(field)?.touched))
+            "
+            class="error-message ion-text-center">
+            <ion-text>
+                <span class="ion-color-danger">{{ validation.message }}</span>
+            </ion-text>
+        </div>
+    </ng-container>
+</div>

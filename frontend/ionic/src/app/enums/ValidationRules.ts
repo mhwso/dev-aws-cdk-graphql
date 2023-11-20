@@ -2,7 +2,7 @@ export const ValidationRules: ValidationRules = {
   email: [
     { type: 'required', message: 'ERRORS.REQUIRED_FIELD' },
     { type: 'email', message: 'ERRORS.NOT_AN_EMAIL' },
-    { type: 'accountNotFound', message: 'ERRORS.ACCOUNT_NOT_FOUND', custom: true },
+    { type: 'accountAlreadyExists', message: 'ERRORS.ACCOUNT_ALREADY_EXISTS', custom: true },
     { type: 'invalidData', message: 'ERRORS.INVALID_DATA', custom: true },
     { type: 'emailNotVerified', message: 'ERRORS.EMAIL_NOT_VERIFIED', custom: true },
   ],
@@ -12,19 +12,21 @@ export const ValidationRules: ValidationRules = {
     { type: 'wrongPassword', message: 'ERRORS.WRONG_PASSWORD', custom: true },
     { type: 'invalidData', message: 'ERRORS.INVALID_DATA', custom: true },
   ],
+  code: [{ type: 'required', message: 'ERRORS.REQUIRED_FIELD' }],
 }
 
 export type ValidationRules = {
-  [key in ValidationKeys]: ValidationRule[]
+  [K in ValidationKeys]: ValidationRule[]
 }
 
-type ValidationRule = {
+export type ValidationRule = {
   type: string
   message: string
   custom?: boolean
 }
 
-enum ValidationKeys {
+export enum ValidationKeys {
   password = 'password',
   email = 'email',
+  code = 'code',
 }

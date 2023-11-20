@@ -17,6 +17,7 @@ import {
   IonToolbar,
 } from '@ionic/angular/standalone'
 import { ValidationRules } from '../../enums/ValidationRules'
+import { ErrorContainerComponent } from '../../components/error-container/error-container.component'
 
 @Component({
   selector: 'app-login',
@@ -38,6 +39,7 @@ import { ValidationRules } from '../../enums/ValidationRules'
     IonButton,
     IonText,
     IonSpinner,
+    ErrorContainerComponent,
   ],
 })
 export class LoginPage implements OnInit {
@@ -48,7 +50,6 @@ export class LoginPage implements OnInit {
   user: IUser
   form: FormGroup
   isSubmitting = false
-  validationRules = ValidationRules
   constructor() {
     this.user = {} as IUser
 

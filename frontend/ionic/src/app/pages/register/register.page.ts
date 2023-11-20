@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { CognitoService, IUser } from '../../services/cognito.service'
 import { Router } from '@angular/router'
 import { Pages } from '../../enums/Pages'
@@ -16,9 +16,13 @@ import {
   IonInput,
   IonItem,
   IonList,
+  IonSpinner,
+  IonText,
   IonTitle,
+  IonToggle,
   IonToolbar,
 } from '@ionic/angular/standalone'
+import { ErrorContainerComponent } from '../../components/error-container/error-container.component'
 
 @Component({
   selector: 'app-register',
@@ -42,31 +46,40 @@ import {
     IonCard,
     IonCardHeader,
     IonCardContent,
+    IonText,
+    ErrorContainerComponent,
+    IonSpinner,
+    IonToggle,
   ],
 })
 export class RegisterPage implements OnInit {
   private cognitoService = inject(CognitoService)
   private router = inject(Router)
-  private fb = inject(FormBuilder)
-
-  form = this.fb.group({
-    email: new FormControl('', Validators.compose([Validators.required])),
-    password: new FormControl('', Validators.compose([Validators.required])),
-    code: ['', Validators.compose([Validators.required])],
-  })
+  private formBuilder = inject(FormBuilder)
 
   isConfirm: boolean
   user: IUser
+  form: FormGroup
+  isSubmitting = false
+  toggleConfirm = false
+
   constructor() {
     this.isConfirm = false
     this.user = {} as IUser
+
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      code: ['', [Validators.required, Validators.maxLength(6)]],
+    })
   }
 
   ngOnInit() {}
 
   singUp() {
+    this.isSubmitting = true
     if (!this.form.valid) {
-      console.log('this.form.errors', this.form.errors)
+      return
     }
 
     this.user.email = this.form.value.email || ''
@@ -77,12 +90,27 @@ export class RegisterPage implements OnInit {
       .then(() => {
         this.isConfirm = true
       })
-      .catch((error: unknown) => {
-        console.log('Error while signup', error)
+      .catch((error: Error) => {
+        console.log('error', error)
+        switch (error.name) {
+          case 'UsernameExistsException':
+            this.form.controls['email'].setErrors({ accountAlreadyExists: true })
+            break
+          case 'InvalidPasswordException':
+            this.form.controls['password'].setErrors({ invalidData: true })
+            break
+          default:
+            this.form.controls['email'].setErrors({ invalidData: true })
+            this.form.controls['password'].setErrors({ invalidData: true })
+        }
+      })
+      .finally(() => {
+        this.isSubmitting = false
       })
   }
 
   confirmSignUp() {
+    this.isSubmitting = true
     this.user.code = this.form.value.code || ''
 
     this.cognitoService
@@ -91,7 +119,14 @@ export class RegisterPage implements OnInit {
         return this.router.navigate([`/${Pages.LOGIN}`])
       })
       .catch((error: unknown) => {
-        console.log('Error while confirmSignUp', error)
+        this.form.controls['code'].setErrors({ invalidData: true })
+        this.isSubmitting = false
       })
   }
+
+  onToggleCode() {
+    this.toggleConfirm = !this.toggleConfirm
+  }
+
+  protected readonly toolbar = toolbar
 }

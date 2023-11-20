@@ -21,15 +21,9 @@
                         formControlName="email"
                         name="email"></ion-input>
                 </ion-item>
-                <div class="error-container">
-                    <ng-container *ngFor="let validation of validationRules.email">
-                        <div
-                            *ngIf="form.get('email')?.hasError(validation.type) && (form.get('email')?.dirty || form.get('email')?.touched)"
-                            class="error-message ion-text-center">
-                            <ion-text class="ion-color-danger">{{validation.message}}</ion-text>
-                        </div>
-                    </ng-container>
-                </div>
+                <app-error-container
+                    field="email"
+                    [form]="form"></app-error-container>
 
                 <ion-item [ngClass]="{'ng-touched ng-invalid':form.controls['password'].invalid}">
                     <ion-input
@@ -39,28 +33,22 @@
                         formControlName="password"
                         name="password"></ion-input>
                 </ion-item>
-                <div class="error-container">
-                    <ng-container *ngFor="let validation of validationRules.password">
-                        <div
-                            *ngIf="form.get('password')?.hasError(validation.type) && (form.get('password')?.dirty || form.get('password')?.touched)"
-                            class="error-message ion-text-center">
-                            <ion-text><span class="ion-color-danger">{{validation.message}}</span></ion-text>
-                        </div>
-                    </ng-container>
-                </div>
+                <app-error-container
+                    field="password"
+                    [form]="form"></app-error-container>
 
                 <ion-item lines="none">
                     <ion-button
                         [disabled]="!form.valid"
                         expand="block"
                         type="submit">
-                        <ion-text *ngIf="!isSubmitting">Anmelden</ion-text>
+                        <ion-text *ngIf="!isSubmitting">Log in</ion-text>
                         <ion-spinner *ngIf="isSubmitting"></ion-spinner>
                     </ion-button>
                 </ion-item>
 
                 <ion-item lines="none">
-                    <a [routerLink]="'/register'">Register</a>
+                    <a [routerLink]="'/register'">Register instead</a>
                 </ion-item>
             </ion-list>
         </form>

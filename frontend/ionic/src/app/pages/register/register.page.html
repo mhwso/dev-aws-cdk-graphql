@@ -23,6 +23,9 @@
                         formControlName="email"
                         name="email"></ion-input>
                 </ion-item>
+                <app-error-container
+                    field="email"
+                    [form]="form"></app-error-container>
 
                 <ion-item>
                     <ion-input
@@ -32,17 +35,31 @@
                         formControlName="password"
                         name="password"></ion-input>
                 </ion-item>
+                <app-error-container
+                    field="password"
+                    [form]="form"></app-error-container>
 
                 <ion-item lines="none">
                     <ion-button
-                        color="success"
-                        type="submit"
-                        >Register</ion-button
-                    >
+                        [disabled]="!form.valid"
+                        expand="block"
+                        type="submit">
+                        <ion-text *ngIf="!isSubmitting">Register</ion-text>
+                        <ion-spinner *ngIf="isSubmitting"></ion-spinner>
+                    </ion-button>
                 </ion-item>
             </ion-list>
 
-            <ion-card *ngIf="isConfirm">
+            <ion-card-content>
+                <ion-card-header>Insert register code only?</ion-card-header>
+                <ion-card-content>
+                    <ion-toggle
+                        [value]="toggleConfirm"
+                        (ionChange)="onToggleCode()"></ion-toggle>
+                </ion-card-content>
+            </ion-card-content>
+
+            <ion-card *ngIf="isConfirm || toggleConfirm">
                 <ion-card-header><p>Confirm register</p></ion-card-header>
                 <ion-card-content>
                     <ion-list>
@@ -53,6 +70,9 @@
                                 formControlName="code"
                                 name="code"></ion-input>
                         </ion-item>
+                        <app-error-container
+                            field="code"
+                            [form]="form"></app-error-container>
                         <ion-item lines="none">
                             <ion-button (click)="confirmSignUp()">Confirm</ion-button>
                         </ion-item>
