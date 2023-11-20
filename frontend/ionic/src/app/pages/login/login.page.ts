@@ -76,10 +76,17 @@ export class LoginPage implements OnInit {
     this.user.password = this.form.value.password || ''
 
     this.cognitoService.signIn(this.user).then(() => {
-      this.cognitoService.getUser().then((result: any) => {
-        console.log('user', result)
-        return this.router.navigate([`/${Pages.DASHBOARD}`])
-      })
+      this.cognitoService
+        .getUser()
+        .then((result: unknown) => {
+          return this.router.navigate([`/${Pages.DASHBOARD}`])
+        })
+        .catch((error: unknown) => {
+          console.log('error', error)
+          this.form.controls['email'].setErrors({ invalidData: true })
+          this.form.controls['password'].setErrors({ invalidData: true })
+          this.isSubmitting = false
+        })
     })
   }
 }
