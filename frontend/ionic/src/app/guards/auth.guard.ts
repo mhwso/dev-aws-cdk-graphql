@@ -1,6 +1,5 @@
 import { inject } from '@angular/core'
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router'
-import { Observable } from 'rxjs'
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router'
 import { Pages } from '../enums/Pages'
 import { CognitoService } from '../services/cognito.service'
 

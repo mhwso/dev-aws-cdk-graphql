@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="/"></ion-back-button>
+            <ion-back-button></ion-back-button>
         </ion-buttons>
         <ion-title class="ion-justify-content-center">Register</ion-title>
     </ion-toolbar>
@@ -20,7 +20,6 @@
                     <ion-input
                         label="E-Mail"
                         label-placement="floating"
-                        error="Please enter a correct user."
                         formControlName="email"
                         name="email"></ion-input>
                 </ion-item>
@@ -30,7 +29,6 @@
                         label="Password"
                         label-placement="floating"
                         type="password"
-                        error="Please enter the correct password."
                         formControlName="password"
                         name="password"></ion-input>
                 </ion-item>

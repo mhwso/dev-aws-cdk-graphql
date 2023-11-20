@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router, RouterLink } from '@angular/router'
 import { CognitoService, IUser } from '../../services/cognito.service'
 import { Pages } from '../../enums/Pages'
@@ -11,9 +11,12 @@ import {
   IonInput,
   IonItem,
   IonList,
+  IonSpinner,
+  IonText,
   IonTitle,
   IonToolbar,
 } from '@ionic/angular/standalone'
+import { ValidationRules } from '../../enums/ValidationRules'
 
 @Component({
   selector: 'app-login',
@@ -33,21 +36,26 @@ import {
     IonItem,
     IonInput,
     IonButton,
+    IonText,
+    IonSpinner,
   ],
 })
 export class LoginPage implements OnInit {
   private cognitoService = inject(CognitoService)
-  private fb = inject(FormBuilder)
+  private formBuilder = inject(FormBuilder)
   private router = inject(Router)
 
   user: IUser
-
-  form = this.fb.group({
-    email: ['', Validators.compose([Validators.required])],
-    password: ['', Validators.compose([Validators.required])],
-  })
+  form: FormGroup
+  isSubmitting = false
+  validationRules = ValidationRules
   constructor() {
     this.user = {} as IUser
+
+    this.form = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    })
   }
 
   ngOnInit() {
@@ -59,6 +67,11 @@ export class LoginPage implements OnInit {
   }
 
   signIn() {
+    this.isSubmitting = true
+    if (!this.form.valid) {
+      return
+    }
+
     this.user.email = this.form.value.email || ''
     this.user.password = this.form.value.password || ''
 

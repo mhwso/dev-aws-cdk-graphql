@@ -6,38 +6,57 @@
 
 <ion-content [fullscreen]="true">
     <div id="container">
-        <h1>Login via Cognito 123</h1>
+        <h1>Login via Cognito</h1>
 
         <form
             id="login"
             [formGroup]="form"
-            (submit)="signIn()">
+            (submit)="signIn()"
+            novalidate>
             <ion-list>
-                <ion-item>
+                <ion-item [ngClass]="{'ng-touched ng-invalid':form.controls['email'].invalid}">
                     <ion-input
                         label="E-Mail"
                         label-placement="floating"
                         formControlName="email"
-                        name="email"
-                        error="Please enter a correct user."></ion-input>
+                        name="email"></ion-input>
                 </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validationRules.email">
+                        <div
+                            *ngIf="form.get('email')?.hasError(validation.type) && (form.get('email')?.dirty || form.get('email')?.touched)"
+                            class="error-message ion-text-center">
+                            <ion-text class="ion-color-danger">{{validation.message}}</ion-text>
+                        </div>
+                    </ng-container>
+                </div>
 
-                <ion-item>
+                <ion-item [ngClass]="{'ng-touched ng-invalid':form.controls['password'].invalid}">
                     <ion-input
                         label="Password"
                         label-placement="floating"
                         type="password"
                         formControlName="password"
-                        name="password"
-                        error="Please enter the correct password."></ion-input>
+                        name="password"></ion-input>
                 </ion-item>
+                <div class="error-container">
+                    <ng-container *ngFor="let validation of validationRules.password">
+                        <div
+                            *ngIf="form.get('password')?.hasError(validation.type) && (form.get('password')?.dirty || form.get('password')?.touched)"
+                            class="error-message ion-text-center">
+                            <ion-text><span class="ion-color-danger">{{validation.message}}</span></ion-text>
+                        </div>
+                    </ng-container>
+                </div>
 
                 <ion-item lines="none">
                     <ion-button
-                        color="success"
-                        type="submit"
-                        >Login</ion-button
-                    >
+                        [disabled]="!form.valid"
+                        expand="block"
+                        type="submit">
+                        <ion-text *ngIf="!isSubmitting">Anmelden</ion-text>
+                        <ion-spinner *ngIf="isSubmitting"></ion-spinner>
+                    </ion-button>
                 </ion-item>
 
                 <ion-item lines="none">

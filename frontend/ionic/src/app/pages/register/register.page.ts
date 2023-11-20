@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { CognitoService, IUser } from '../../services/cognito.service'
 import { Router } from '@angular/router'
 import { Pages } from '../../enums/Pages'
@@ -50,8 +50,8 @@ export class RegisterPage implements OnInit {
   private fb = inject(FormBuilder)
 
   form = this.fb.group({
-    email: ['', Validators.compose([Validators.required])],
-    password: ['', Validators.compose([Validators.required])],
+    email: new FormControl('', Validators.compose([Validators.required])),
+    password: new FormControl('', Validators.compose([Validators.required])),
     code: ['', Validators.compose([Validators.required])],
   })
 
@@ -65,6 +65,10 @@ export class RegisterPage implements OnInit {
   ngOnInit() {}
 
   singUp() {
+    if (!this.form.valid) {
+      console.log('this.form.errors', this.form.errors)
+    }
+
     this.user.email = this.form.value.email || ''
     this.user.password = this.form.value.password || ''
 
