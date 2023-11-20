@@ -6,7 +6,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "build::frontend": "cd frontend/ionic && export NODE_OPTIONS=--openssl-legacy-provider && ionic build",
+    "build::frontend": "cd frontend/ionic && export NODE_OPTIONS=--openssl-legacy-provider && ionic build --prod",
     "watch": "tsc -w",
     "test": "jest",
     "cdk": "cdk",
